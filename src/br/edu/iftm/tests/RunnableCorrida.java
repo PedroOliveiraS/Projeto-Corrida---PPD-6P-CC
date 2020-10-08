@@ -11,7 +11,7 @@ public class RunnableCorrida {
 		// TODO Auto-generated method stub
 		System.out.println("Bem vindo a corrida...");
 		System.out.print("Quantos corredores vão participar da corrida? \n-> ");
-		ArrayList<ThreadRunnableCorrida> listCorrida = new ArrayList();
+		ArrayList<Thread> listCorrida = new ArrayList();
 		
 		Scanner sc = new Scanner(System.in);
 		int participantes = sc.nextInt();
@@ -24,12 +24,25 @@ public class RunnableCorrida {
 			int vel = sc.nextInt();
 			System.out.println();
 			ThreadRunnableCorrida a = new ThreadRunnableCorrida(nome, vel);
-			listCorrida.add(a);
+			Thread t = new Thread(a);
+			listCorrida.add(t);
 		}
 		
 		for (int i = 0; i < participantes; i++) {
-			listCorrida.get(i).correr();
+			listCorrida.get(i).start();
 		}
+		
+		// Verificando se as threds já pararam de funcionar
+		for (int i = 0; i < participantes; i++) {
+			try {
+				listCorrida.get(i).join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			};
+		}
+		
+		System.out.println("A corrida foi finalizada.");
 	}
 
 }

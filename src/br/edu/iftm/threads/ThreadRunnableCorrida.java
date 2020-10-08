@@ -10,10 +10,6 @@ public class ThreadRunnableCorrida implements Runnable {
 		thread = new Thread(this);
 	}
 	
-	public void correr(){
-		thread.start();
-	}
-	
 	public void run() {
 		for (int i = 0; i < 10; i++) {
 			
